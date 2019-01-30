@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PreviewPanel extends StatelessWidget {
   final double scalor;
-  final MaterialColor color;
+  final Color color;
 
   PreviewPanel({
     this.color, this.scalor

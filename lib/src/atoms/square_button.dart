@@ -3,7 +3,7 @@ import 'bloc_provider.dart';
 import '../molecules/option_primary_color_bloc.dart';
 
 class SquareButton extends StatelessWidget {
-  final MaterialColor color;
+  final Color color;
   final bool select;
   static const double _selected = 8.0;
   static const double _deselected = 1.0;

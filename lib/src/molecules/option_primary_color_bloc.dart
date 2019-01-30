@@ -4,21 +4,24 @@ import '../atoms/square_button.dart';
 import '../atoms/bloc_provider.dart';
 
 class PrimaryColorOptionBloc implements BlocBase{
-  final _colors = BehaviorSubject<List<SquareButton>>(seedValue: 
-    [
-      SquareButton(color: Colors.red, select: true,),
-      SquareButton(color: Colors.blue),
-      SquareButton(color: Colors.yellow)
-    ]
-  );
+  final List<Color> buttonList;
+  final _colors = BehaviorSubject<List<SquareButton>>();
+
+  PrimaryColorOptionBloc(this.buttonList){
+    _colors.sink.add([
+      SquareButton(color: buttonList[0], select: true,),
+      SquareButton(color: buttonList[1]),
+      SquareButton(color: buttonList[2])
+    ]);
+  }
   
   final _selectedColor = BehaviorSubject<int>(seedValue: 0);
 
   ValueObservable<List<SquareButton>> get colorList => _colors.stream;
 
-  MaterialColor get selectedColor => _colors.stream.value[_selectedColor.stream.value].color;
+  Color get selectedColor => _colors.stream.value[_selectedColor.stream.value].color;
 
-  Function(MaterialColor) get setColor => (newColor) {
+  Function(Color) get setColor => (newColor) {
     if(newColor==selectedColor) return;
     else{
       var newList = colorList.value;

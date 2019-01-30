@@ -10,7 +10,11 @@ class Editor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      bloc: PrimaryColorOptionBloc(),
+      bloc: PrimaryColorOptionBloc([
+        Theme.of(context).primaryColor, 
+        Theme.of(context).accentColor, 
+        Theme.of(context).primaryColorLight, 
+      ]),
       child: Scaffold(
         appBar: editorBar(),
         body: ListView(
