@@ -54,7 +54,6 @@ class _TemplateThumbGalleryState extends State<TemplateThumbGallery> {
     setState(() {
       scale=0.9-(0.588-(drag.globalPosition.dx)/350).abs();
       position=(drag.globalPosition.dx/412*2)-1;
-      print(scale);
     });
   }
 
