@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../atoms/preview_panel.dart';
+import '../atoms/bloc_provider.dart';
+import '../molecules/option_primary_color_bloc.dart';
 
 class TemplateThumbGallery extends StatefulWidget{
   @override
@@ -6,26 +9,18 @@ class TemplateThumbGallery extends StatefulWidget{
 }
 
 class _TemplateThumbGalleryState extends State<TemplateThumbGallery> {
-  // Animation<double> thumbnailAnimation;
-  // AnimationController thumbnailController;
   double scale = 0.9;
   double position = 0.0;
 
-  // void initState() { 
-  //   super.initState();
-    
-
-    
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<PrimaryColorOptionBloc>(context);
     return Container(
       alignment: Alignment(position, 0),
       height: 200.0,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(16.0),
-      child: gallery(),
+      child: gallery(bloc),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -39,17 +34,18 @@ class _TemplateThumbGalleryState extends State<TemplateThumbGallery> {
     );
   }
 
-  Widget gallery(){
-    return GestureDetector(
-      onHorizontalDragUpdate: scaleAndSlide,
-      onHorizontalDragEnd: snap,
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: <Widget>[
-          panel1(Colors.red),
-          panel2(Colors.green),
-          
-        ],
+  Widget gallery(PrimaryColorOptionBloc bloc){
+    return StreamBuilder(
+      stream: bloc.colorList,
+      builder: (context, snapshot)=>GestureDetector(
+        onHorizontalDragUpdate: scaleAndSlide,
+        onHorizontalDragEnd: snap,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+            PreviewPanel(color: bloc.selectedColor, scalor: scale,),
+          ],
+        ),
       ),
     );
   }
@@ -70,31 +66,4 @@ class _TemplateThumbGalleryState extends State<TemplateThumbGallery> {
     });
   }
 
-  Widget panel1(MaterialColor color){
-    return Container(
-        constraints: BoxConstraints(
-          maxHeight: 180*scale,
-          // minHeight: 60.0,
-          maxWidth: 106.0*scale,
-          // minWidth: 36.0
-        ),
-        decoration: BoxDecoration(
-          color: color
-        ),
-      );
-  }
-
-  Widget panel2(MaterialColor color){
-    return Container(
-        constraints: BoxConstraints(
-          maxHeight: 180*scale*0.5,
-          // minHeight: 60.0,
-          maxWidth: 30.0*scale,
-          // minWidth: 36.0
-        ),
-        decoration: BoxDecoration(
-          color: color
-        ),
-      );
-  }
 }

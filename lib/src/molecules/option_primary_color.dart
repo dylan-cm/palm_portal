@@ -4,10 +4,10 @@ import 'option_primary_color_bloc.dart';
 import '../atoms/bloc_provider.dart';
 
 class PrimaryColorOption extends StatelessWidget {
-  final bloc = PrimaryColorOptionBloc();
-  
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<PrimaryColorOptionBloc>(context);
+
     return BlocProvider(
       bloc: bloc,
       child: ListTile(
