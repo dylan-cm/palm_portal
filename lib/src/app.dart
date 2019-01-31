@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/editor.dart';
+import 'screens/brand_identity.dart';
 import 'theme.dart';
 import 'atoms/bloc_provider.dart';
 
@@ -27,7 +28,7 @@ class App extends StatelessWidget {
               fontFamily: snapshot.data.fontFamily,
               brightness: snapshot.data.lightTheme ? Brightness.light : Brightness.dark,
             ) : ThemeData(),
-            home: Editor(),
+            home: BrandId(),//Editor(), //BUILDING BRAND ID SCREEN
           );
         }
       ),
