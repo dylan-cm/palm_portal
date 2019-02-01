@@ -9,11 +9,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    themeBloc.setTheme(ThemeModel(
-      //FOR TESTING ONLY
-      primaryColor: int.parse(Colors.red[500].toString().substring(6,16)),
-      primaryBright: int.parse(Colors.yellow[500].toString().substring(6,16)),
-      ));
+    // themeBloc.setTheme(ThemeModel(
+    //   //FOR TESTING ONLY
+    //   primaryColor: int.parse(Colors.red[500].toString().substring(6,16)),
+    //   primaryBright: int.parse(Colors.yellow[500].toString().substring(6,16)),
+    //   ));
     return BlocProvider<ThemeBloc>(
       bloc: themeBloc,
       child: StreamBuilder(

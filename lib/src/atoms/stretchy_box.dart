@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class StretchyBox extends StatelessWidget {
+class StretchyBox extends StatefulWidget {
   final double width;
   final bool stretchyWidth;
   final double height;
   final bool stretchyHeight;
-  Size envelopeSize;
+  final Size envelopeSize;
   final Color color;
   final double elevation;
 
@@ -20,16 +20,38 @@ class StretchyBox extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    envelopeSize ??= MediaQuery.of(context).size;
+  State<StatefulWidget> createState() => _StretchyBoxState();
+}
 
-    return Material(
-      elevation: elevation,
-      color: color,
-      child: SizedBox(
-        width: width * (stretchyWidth ? envelopeSize.width : 1),
-        height: height * (stretchyHeight ? envelopeSize.height : 1),
+class _StretchyBoxState extends State<StretchyBox> {
+  double radius = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    var size = widget.envelopeSize == null ? MediaQuery.of(context).size : widget.envelopeSize;
+
+    return GestureDetector(
+      onTap: _onTap,
+      child: Material(
+        elevation: widget.elevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radius))
+          
+        ),
+        color: widget.color,
+        child: Container(
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.all(Radius.circular(100)),
+          //   color: widget.color,
+          // ),
+          width: widget.width * (widget.stretchyWidth ? size.width : 1),
+          height: widget.height * (widget.stretchyHeight ? size.height : 1),
+        ),
       ),
     );
+  }
+
+  void _onTap(){
+    radius==0 ? setState(()=> radius += 100.0) : setState(()=> radius = 0);
   }
 }
