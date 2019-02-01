@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../organisms/color_picker.dart';
+import '../molecules/font_picker.dart';
 
 class BrandId extends StatelessWidget {
   @override
@@ -12,12 +13,12 @@ class BrandId extends StatelessWidget {
           onPressed: ()=>{}, //TODO: NAVIGATION
         ),
       ),
-      body: Column(
+      body: Stack(
         children: <Widget>[
           // BrandForm(),
           // AppIconPicker(),
+          FontPicker(),
           ColorPicker(),
-          // FontPicker(),
         ],
       ),
     );

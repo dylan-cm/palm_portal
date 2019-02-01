@@ -14,7 +14,7 @@ class _ColorPickerState extends State<ColorPicker> with TickerProviderStateMixin
     super.initState();
     
     detailsController = AnimationController(
-      duration: Duration(milliseconds: 150),
+      duration: Duration(milliseconds: 200),
       vsync: this,
     );
 
@@ -28,7 +28,7 @@ class _ColorPickerState extends State<ColorPicker> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return ColorGrid()
+    return buildDetailsAnimation()
     ;
   }
 
@@ -49,20 +49,28 @@ class _ColorPickerState extends State<ColorPicker> with TickerProviderStateMixin
           children: [
             Opacity(
               opacity: detailsAnimation.value,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height-80,
-              color: Colors.grey,
-            )
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height-80,
+                color: Colors.white,
+              )
+            ),
+            Positioned(
+              child: Text(
+                Theme.of(context).primaryColor.toString().substring(6,16), 
+                style: TextStyle(fontSize: 32)
+              ),
+              top: 125,
+              left: 16 + 700 - detailsAnimation.value*700,
+            ),
+            Positioned(
+              child: ColorGrid(height:400),
+              left: 700 - detailsAnimation.value*700,
+              bottom: 0,
             ),
             Positioned(
               child: BrandColorDisplay(onPressed: onTap),
               bottom: 16 + detailsAnimation.value*470,
-            ),
-            Positioned(
-              child: ColorGrid(),
-              left: 700 - detailsAnimation.value*700,
-              bottom: 0,
             ),
           ]
         );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StretchyBox extends StatefulWidget {
+class StretchyBox extends StatelessWidget {
   final double width;
   final bool stretchyWidth;
   final double height;
@@ -8,6 +8,7 @@ class StretchyBox extends StatefulWidget {
   final Size envelopeSize;
   final Color color;
   final double elevation;
+  final double radius;
 
   StretchyBox({
     this.width : 1.0, 
@@ -16,42 +17,24 @@ class StretchyBox extends StatefulWidget {
     this.stretchyHeight : false,
     this.envelopeSize,
     this.color : Colors.grey,
-    this.elevation : 0,
+    this.elevation : 0.0,
+    this.radius : 0.0,
   });
 
   @override
-  State<StatefulWidget> createState() => _StretchyBoxState();
-}
-
-class _StretchyBoxState extends State<StretchyBox> {
-  double radius = 0.0;
-
-  @override
   Widget build(BuildContext context) {
-    var size = widget.envelopeSize == null ? MediaQuery.of(context).size : widget.envelopeSize;
+    var size = envelopeSize == null ? MediaQuery.of(context).size : envelopeSize;
 
-    return GestureDetector(
-      onTap: _onTap,
-      child: Material(
-        elevation: widget.elevation,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(radius))
-          
-        ),
-        color: widget.color,
-        child: Container(
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.all(Radius.circular(100)),
-          //   color: widget.color,
-          // ),
-          width: widget.width * (widget.stretchyWidth ? size.width : 1),
-          height: widget.height * (widget.stretchyHeight ? size.height : 1),
-        ),
+    return  Material(
+      elevation: elevation,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(radius))
+      ),
+      color: color,
+      child: Container(
+        width: width * (stretchyWidth ? size.width : 1),
+        height: height * (stretchyHeight ? size.height : 1),
       ),
     );
-  }
-
-  void _onTap(){
-    radius==0 ? setState(()=> radius += 100.0) : setState(()=> radius = 0);
   }
 }
